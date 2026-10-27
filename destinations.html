@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Destinations | TravelBharat</title>
+<meta name="description" content="Search and filter tourist destinations by state, city and category.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/theme-toggle.js"></script>
+</head>
+<body data-page="destinations">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header__bar">
+    <a class="brand" href="index.html">TravelBharat</a>
+    <nav class="nav" id="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="states.html">States</a>
+        <a href="destinations.html" aria-current="page">Destinations</a>
+        <a href="about.html">About</a>
+    </nav>
+    <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    <a class="btn btn--sm" href="destinations.html">Explore</a>
+    <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<main id="main">
+<section class="page-head">
+  <div class="container">
+    <p class="eyebrow">Destinations</p>
+    <h1>Find a destination</h1>
+    <p class="lead">Search by name or keyword, then narrow by state, city or category.</p>
+  </div>
+</section>
+<section class="section section--tight">
+  <div class="container">
+    <form class="filters" onsubmit="return false" role="search">
+      <label class="field">Search<input id="f-q" type="search" placeholder="Name or keyword" autocomplete="off"></label>
+      <label class="field">State<select id="f-state"><option value="">All states</option></select></label>
+      <label class="field">City<select id="f-city"></select></label>
+      <label class="field">Category<select id="f-cat"><option value="">All categories</option></select></label>
+      <button class="btn btn--ghost" type="button" id="f-clear">Clear filters</button>
+    </form>
+    <p class="count" id="dest-count" aria-live="polite"></p>
+    <div class="grid" id="dest-grid"><noscript><p class="noscript-note">This page needs JavaScript to load its destinations.</p></noscript></div>
+    <div class="empty" id="dest-empty" hidden role="status">
+      <h3>No destinations match</h3>
+      <p>Try a broader search or remove a filter.</p>
+      <button class="btn btn--ghost" type="button" id="dest-empty-clear">Clear filters</button>
+    </div>
+  </div>
+</section>
+<template id="tpl-destination">
+  <a class="card" href="#">
+    <div class="card__media media">
+      <img src="" alt="" width="800" height="600" loading="lazy">
+      <ul class="card__tags">
+        <li class="tag" data-f="tag1"></li>
+        <li class="tag" data-f="tag2"></li>
+      </ul>
+    </div>
+    <div class="card__body">
+      <h3 class="card__title" data-f="title"></h3>
+      <p class="card__meta" data-f="meta"></p>
+      <p class="card__text" data-f="text"></p>
+      <div class="card__foot"><span data-f="count"></span><span class="card__cta">View</span></div>
+    </div>
+  </a>
+</template>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__cols">
+      <div>
+        <a class="brand" href="index.html">TravelBharat</a>
+        <span>Explore India, state by state.</span>
+      </div>
+      <div>
+        <b>Explore</b>
+        <a href="states.html">States and union territories</a>
+        <a href="destinations.html">All destinations</a>
+        <a href="destinations.html?cat=Heritage">Heritage</a>
+        <a href="destinations.html?cat=Nature">Nature</a>
+      </div>
+      <div>
+        <b>Project</b>
+        <a href="about.html">About TravelBharat</a>
+        <a href="destinations.html?cat=Beach">Beaches</a>
+        <a href="destinations.html?cat=Spiritual">Spiritual places</a>
+      </div>
+    </div>
+    <p class="footer__note">Travel details are for inspiration. Confirm timings, permits and conditions with official sources before you go.</p>
+    <div class="footer__mark" aria-hidden="true">TravelBharat</div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/smooth-scroll.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
