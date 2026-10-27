@@ -108,6 +108,42 @@
     strip.addEventListener("dragstart", function (e) {
       e.preventDefault();
     });
+    /* previous / next buttons under the strip */
+    var nav = document.createElement("div");
+    nav.className = "strip-nav";
+    function mk(label, dir, d) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "icon-btn";
+      b.setAttribute("aria-label", label);
+      b.innerHTML =
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' +
+        d +
+        '"/></svg>';
+      b.addEventListener("click", function () {
+        strip.scrollBy({
+          left: dir * strip.clientWidth * 0.8,
+          behavior: reduce ? "auto" : "smooth",
+        });
+      });
+      return b;
+    }
+    var prev = mk("Scroll states left", -1, "M15 5l-7 7 7 7"),
+      next = mk("Scroll states right", 1, "M9 5l7 7-7 7");
+    nav.appendChild(prev);
+    nav.appendChild(next);
+    strip.parentNode.insertBefore(nav, strip.nextSibling);
+    function edges() {
+      var max = strip.scrollWidth - strip.clientWidth;
+      prev.disabled = strip.scrollLeft <= 1;
+      next.disabled = strip.scrollLeft >= max - 1;
+      nav.hidden = max <= 1;
+    }
+    strip.addEventListener("scroll", edges, { passive: true });
+    addEventListener("resize", edges);
+    new MutationObserver(edges).observe(strip, { childList: true });
+    edges();
+
     /* mouse wheel over the strip scrolls it sideways; at either end the page scrolls again */
     strip.addEventListener(
       "wheel",
@@ -169,19 +205,21 @@
         removeGate();
       }
     };
+    var blocked = false;
     var onTouchStart = function (e) {
       touchY = e.touches[0].clientY;
       if (revealed) {
+        blocked = false;
         released = true;
         removeGate();
+        return;
       }
+      blocked = true;
     };
     var onTouchMove = function (e) {
-      if (revealed) return;
-      if (touchY - e.touches[0].clientY > 8) {
-        e.preventDefault();
-        showHero();
-      }
+      if (!blocked) return;
+      e.preventDefault(); /* keep the page still for the whole first swipe */
+      if (touchY - e.touches[0].clientY > 8 && !revealed) showHero();
     };
     var onKey = function (e) {
       var t = e.target && e.target.tagName;
